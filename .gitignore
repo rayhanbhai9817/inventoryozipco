@@ -1,0 +1,86 @@
+# ===========================================================================
+# Fast Sold LLC — Inventory Management SaaS
+# ===========================================================================
+
+# --- Secrets and environment ------------------------------------------------
+# Never commit a real environment file. Only `.env.example` belongs in git.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+id_rsa*
+secrets.json
+credentials.json
+
+# --- Dependencies -----------------------------------------------------------
+node_modules/
+/backend/vendor/
+.pnp
+.pnp.js
+
+# --- Next.js build output ---------------------------------------------------
+/frontend/.next/
+/frontend/out/
+/frontend/build/
+/frontend/.vercel
+/frontend/next-env.d.ts
+/frontend/.turbo
+*.tsbuildinfo
+
+# --- Laravel runtime --------------------------------------------------------
+/backend/storage/*.key
+/backend/storage/pail
+/backend/storage/framework/cache/data/*
+/backend/storage/framework/sessions/*
+/backend/storage/framework/testing/*
+/backend/storage/framework/views/*
+/backend/storage/logs/*
+/backend/bootstrap/cache/*.php
+/backend/public/storage
+/backend/public/hot
+/backend/public/build
+/backend/.phpunit.result.cache
+/backend/.phpunit.cache
+/backend/auth.json
+/backend/Homestead.json
+/backend/Homestead.yaml
+/backend/.phpactor.json
+
+# --- Local databases --------------------------------------------------------
+# This project uses PostgreSQL. No local database file should ever be committed;
+# the test suite runs against in-memory SQLite.
+*.sqlite
+*.sqlite-journal
+*.sqlite3
+*.db
+
+# --- Logs and temporary files -----------------------------------------------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+/backend/storage/debugbar
+
+# --- Editors and OS ---------------------------------------------------------
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.example.json
+.fleet/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+._*
+
+# --- Coverage and test artifacts --------------------------------------------
+/coverage/
+/frontend/coverage/
+/backend/coverage/
+clover.xml
+coverage.xml
