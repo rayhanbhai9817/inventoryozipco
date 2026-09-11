@@ -1,12 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, type FormEvent } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox, Field, Input, PasswordInput } from '@/components/ui/field';
-import { Icon } from '@/components/ui/icon';
 import { Alert } from '@/components/ui/states';
 import { useToast } from '@/components/ui/toast';
 import { ApiError } from '@/lib/api-client';
@@ -96,11 +94,11 @@ export function LoginForm() {
   return (
     <div className="animate-rise">
       <header>
-        <h1 className="font-display text-display-xs font-semibold tracking-tight text-content-primary">
-          Sign in to Fast Sold
+        <h1 className="font-display text-[1.375rem] leading-tight font-semibold tracking-tight text-content-primary">
+          Sign in to your account
         </h1>
-        <p className="mt-2 text-sm text-content-secondary">
-          Welcome back. Enter your details to reach your inventory.
+        <p className="mt-1.5 text-sm text-content-secondary">
+          Fast Sold inventory management
         </p>
       </header>
 
@@ -139,19 +137,10 @@ export function LoginForm() {
           />
         </Field>
 
-        <Field
-          label="Password"
-          error={fieldErrors.password}
-          required
-          labelAccessory={
-            <Link
-              href="/forgot-password"
-              className="rounded font-medium text-brand-600 underline-offset-2 hover:underline dark:text-brand-400"
-            >
-              Forgot password?
-            </Link>
-          }
-        >
+        {/* No "Forgot password?" link: the API exposes no password-reset
+            endpoint, so it would be a dead link. Recovery is administrative —
+            an owner resets a password from Settings → Users. */}
+        <Field label="Password" error={fieldErrors.password} required>
           <PasswordInput
             name="password"
             autoComplete="current-password"
@@ -176,23 +165,11 @@ export function LoginForm() {
         </Button>
       </form>
 
-      <p className="mt-7 text-center text-[0.8125rem] text-content-secondary">
-        New to Fast Sold?{' '}
-        <Link
-          href="/register"
-          className="rounded font-semibold text-brand-600 underline-offset-2 hover:underline dark:text-brand-400"
-        >
-          Create your business
-        </Link>
+      {/* Accounts are created by an owner or manager inside the application.
+          There is deliberately no public registration path. */}
+      <p className="mt-6 text-center text-xs leading-relaxed text-content-tertiary">
+        Need access or a password reset? Ask your business owner.
       </p>
-
-      <div className="mt-8 flex items-start gap-2.5 rounded-xl bg-surface-sunken/70 p-3.5 text-xs leading-relaxed text-content-tertiary">
-        <Icon name="shield" size={15} className="mt-px shrink-0" />
-        <p>
-          Sign-in attempts are rate limited and recorded in your business&rsquo;s audit log, so you
-          can see who accessed your inventory and when.
-        </p>
-      </div>
     </div>
   );
 }
