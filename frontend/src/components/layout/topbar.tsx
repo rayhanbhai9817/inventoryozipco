@@ -207,8 +207,10 @@ export function Avatar({
 }) {
   if (user.avatar_url) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element -- avatars come from
-      // the API at arbitrary origins; next/image would need every host allow-listed.
+      /* eslint-disable-next-line @next/next/no-img-element --
+         Avatars come from the API at arbitrary origins. next/image would require
+         every one of those hosts to be allow-listed in next.config.ts, which is
+         not knowable ahead of time for a multi-tenant product. */
       <img
         src={user.avatar_url}
         alt=""

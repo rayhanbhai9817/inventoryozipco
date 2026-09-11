@@ -2,13 +2,14 @@
   "name": "fastsold-frontend",
   "version": "0.1.0",
   "private": true,
-  "description": "Fast Sold LLC — Inventory Management SaaS frontend (Next.js)",
+  "description": "Fast Sold LLC \u2014 Inventory Management SaaS frontend (Next.js)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "next": "15.5.4",
@@ -17,6 +18,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
     "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^22.15.3",
     "@types/react": "^19.1.8",

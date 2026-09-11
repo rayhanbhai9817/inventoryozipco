@@ -61,6 +61,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             face — preferable to a blocking render. */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font --
+            The rule warns about fonts loaded outside `pages/_document.js`, which
+            does not exist in the App Router: this *is* the document head, shared
+            by every route, so the font is loaded once and not per page. */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=Inter+Tight:wght@500..700&display=swap"
