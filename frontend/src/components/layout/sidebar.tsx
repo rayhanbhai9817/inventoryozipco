@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { CountBubble } from '@/components/ui/badge';
-import { BrandLogo, Icon } from '@/components/ui/icon';
+import { BrandLogo } from '@/components/ui/brand-logo';
+import { Icon } from '@/components/ui/icon';
 import { isNavItemActive, type NavSection } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 
@@ -58,7 +59,7 @@ export function Sidebar({
             collapsed ? 'justify-center px-2' : 'justify-between px-4',
           )}
         >
-          <Link href="/dashboard" className="min-w-0 rounded-lg" aria-label="Fast Sold dashboard">
+          <Link href="/dashboard" className="min-w-0 rounded-lg" aria-label="Ozipco Inventory dashboard">
             <BrandLogo size={28} showWordmark={showLabels} />
           </Link>
           {onToggleCollapsed && showLabels ? (

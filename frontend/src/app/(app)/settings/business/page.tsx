@@ -313,7 +313,7 @@ export default function BusinessSettingsPage() {
       <Card>
         <CardHeader
           title="Business-wide alerts"
-          description="Whether Fast Sold raises stock alerts for everyone in this business. Individuals can still mute them for themselves."
+          description="Whether Ozipco Inventory raises stock alerts for everyone in this business. Individuals can still mute them for themselves."
           icon="bell"
         />
         <div className="mt-5 space-y-4">

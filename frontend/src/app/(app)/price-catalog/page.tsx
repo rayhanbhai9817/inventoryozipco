@@ -185,7 +185,7 @@ export default function PriceCatalogPage() {
 
       <Alert tone="info" icon="info" title="Reference data, separate from inventory">
         Prices recorded here never take part in quantity arithmetic, FIFO consumption or ledger
-        balances. Changing a price cannot change your stock, and Fast Sold does not compute an
+        balances. Changing a price cannot change your stock, and Ozipco Inventory does not compute an
         inventory valuation from them.
       </Alert>
 

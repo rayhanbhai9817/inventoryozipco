@@ -67,7 +67,7 @@ export default function ReportsPage() {
           icon="info"
         />
         <p className="mt-4 text-[0.8125rem] leading-relaxed text-content-secondary">
-          Fast Sold reports on <strong className="text-content-primary">quantities</strong>. Unit
+          Ozipco Inventory reports on <strong className="text-content-primary">quantities</strong>. Unit
           costs captured at receipt appear in the batch and ledger reports for traceability, and
           reference prices appear in the price history report — but nothing here multiplies a price
           by a quantity to produce an inventory valuation. That is an accounting function, and

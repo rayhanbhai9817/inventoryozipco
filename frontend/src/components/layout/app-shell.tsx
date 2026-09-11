@@ -5,7 +5,8 @@ import { useEffect, useState, type ReactNode } from 'react';
 
 import { Sidebar } from '@/components/layout/sidebar';
 import { Topbar } from '@/components/layout/topbar';
-import { BrandLogo, Icon } from '@/components/ui/icon';
+import { BrandLogo } from '@/components/ui/brand-logo';
+import { Icon } from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { LoadingState } from '@/components/ui/states';
 import { useAuth } from '@/lib/auth';
@@ -118,7 +119,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <footer className="border-t border-border-subtle px-4 py-4 sm:px-6">
           <div className="mx-auto flex max-w-[90rem] flex-wrap items-center justify-between gap-2 text-xs text-content-tertiary">
-            <p>© {new Date().getFullYear()} Fast Sold LLC</p>
+            <p>© {new Date().getFullYear()} Ozipco Inventory</p>
             <p className="inline-flex items-center gap-1.5">
               <Icon name="lock" size={12} />
               {user.business?.name ?? 'Your business'} · data isolated from other businesses

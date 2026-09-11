@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { BrandLogo } from '@/components/ui/icon';
+import { BrandLogo } from '@/components/ui/brand-logo';
 
 /**
  * The shell around the sign-in experience.
@@ -9,25 +9,8 @@ import { BrandLogo } from '@/components/ui/icon';
  * job and every pixel serves it. Used by both `/` and `/login` so there is
  * exactly one login layout and one login form in the codebase.
  *
- * ---------------------------------------------------------------------------
- * OZIPCO LOGO GOES HERE
- * ---------------------------------------------------------------------------
- * No Ozipco logo asset exists in this repository, so the current Fast Sold
- * brandmark is rendered as a placeholder rather than a fabricated Ozipco one.
- *
- * To switch to the real logo:
- *   1. Save the file as  frontend/public/brand/ozipco-logo.svg
- *      (SVG preferred; a 2x PNG also works. Transparent background.)
- *   2. Replace the <BrandLogo /> line below with:
- *
- *        <img
- *          src="/brand/ozipco-logo.svg"
- *          alt="Ozipco"
- *          className="mx-auto h-9 w-auto"
- *        />
- *
- * Nothing else needs to change — the spacing around this slot is fixed, so a
- * wordmark of any reasonable aspect ratio will sit correctly.
+ * The logo lives in `BrandLogo` — see `components/ui/brand-logo.tsx` for where
+ * to drop the brand asset.
  */
 export function AuthShell({ children }: { children: ReactNode }) {
   return (
@@ -46,7 +29,7 @@ export function AuthShell({ children }: { children: ReactNode }) {
       </main>
 
       <footer className="px-5 pb-8 text-center text-xs text-content-tertiary">
-        <p>© {new Date().getFullYear()} Fast Sold LLC · Inventory management</p>
+        <p>© {new Date().getFullYear()} Ozipco Inventory</p>
       </footer>
     </div>
   );

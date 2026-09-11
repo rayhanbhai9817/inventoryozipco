@@ -3,7 +3,7 @@ import type { SVGProps } from 'react';
 import { cn } from '@/lib/utils';
 
 /**
- * The Fast Sold icon set.
+ * The Ozipco Inventory icon set.
  *
  * Hand-drawn rather than pulled from a package: it keeps the bundle small, gives
  * every glyph the same 24×24 grid, 1.75 stroke weight and round caps, and avoids
@@ -174,68 +174,5 @@ export function Icon({ name, size = 20, label, className, ...props }: IconProps)
       {label ? <title>{label}</title> : null}
       <path d={PATHS[name]} />
     </svg>
-  );
-}
-
-/**
- * The Fast Sold brandmark: two stacked chevrons forming a forward-moving "S",
- * inside a rounded square. Filled rather than stroked, so it holds up at 20px in
- * a sidebar and at 64px on the landing page.
- */
-export function BrandMark({ size = 32, className, ...props }: Omit<IconProps, 'name'>) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 40 40"
-      fill="none"
-      className={cn('shrink-0', className)}
-      aria-hidden
-      {...props}
-    >
-      <rect width="40" height="40" rx="11" fill="url(#fs-brand-gradient)" />
-      <path
-        d="M11.5 13.5h14l-5.2 5.2h-8.8l-2.4-2.6 2.4-2.6Z"
-        fill="white"
-        fillOpacity="0.95"
-      />
-      <path
-        d="M28.5 26.5h-14l5.2-5.2h8.8l2.4 2.6-2.4 2.6Z"
-        fill="white"
-        fillOpacity="0.72"
-      />
-      <defs>
-        <linearGradient id="fs-brand-gradient" x1="0" y1="0" x2="40" y2="40">
-          <stop stopColor="#1F9FA5" />
-          <stop offset="0.55" stopColor="#137E87" />
-          <stop offset="1" stopColor="#FF5A1F" />
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-}
-
-/** Wordmark + brandmark, used in the header, sidebar and auth screens. */
-export function BrandLogo({
-  size = 32,
-  showWordmark = true,
-  className,
-}: {
-  size?: number;
-  showWordmark?: boolean;
-  className?: string;
-}) {
-  return (
-    <span className={cn('inline-flex items-center gap-2.5', className)}>
-      <BrandMark size={size} />
-      {showWordmark ? (
-        <span className="font-display text-[1.0625rem] leading-none font-semibold tracking-tight text-content-primary">
-          Fast Sold
-          <span className="ml-1 align-text-top text-[0.5625rem] font-medium tracking-[0.14em] text-content-tertiary uppercase">
-            LLC
-          </span>
-        </span>
-      ) : null}
-    </span>
   );
 }

@@ -6,7 +6,7 @@ import { ToastProvider } from '@/components/ui/toast';
 
 import './globals.css';
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? 'Fast Sold LLC';
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? 'Ozipco Inventory';
 
 export const metadata: Metadata = {
   title: {

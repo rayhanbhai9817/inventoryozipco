@@ -6,7 +6,7 @@ import { LoadingState } from '@/components/ui/states';
 
 export const metadata: Metadata = {
   title: 'Sign in',
-  description: 'Sign in to your Fast Sold LLC inventory workspace.',
+  description: 'Sign in to your Ozipco Inventory workspace.',
   robots: { index: false, follow: false },
 };
 

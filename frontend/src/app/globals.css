@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 /* ==========================================================================
-   Fast Sold LLC — Design system
+   Ozipco Inventory — Design system
    ==========================================================================
 
    One visual language across the marketing site, the auth screens and the
@@ -14,7 +14,7 @@
      playful, and — importantly for an inventory product — it does not collide
      with the semantic greens and reds used for stock health.
    - `ember` is a warm coral accent used sparingly: the brandmark, a highlight
-     underline, one chart series. It supplies the "Fast" in Fast Sold without
+     underline, one chart series. It adds warmth to the interface without
      turning the interface into a warning.
    - `ink` is a cool-cast neutral ramp. Slightly blue rather than pure grey, so
      large surfaces feel considered instead of flat.

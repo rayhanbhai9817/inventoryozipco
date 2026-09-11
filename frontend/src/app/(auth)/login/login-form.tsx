@@ -98,7 +98,7 @@ export function LoginForm() {
           Sign in to your account
         </h1>
         <p className="mt-1.5 text-sm text-content-secondary">
-          Fast Sold inventory management
+          Ozipco Inventory
         </p>
       </header>
 

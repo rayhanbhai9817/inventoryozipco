@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
@@ -48,14 +49,50 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Global API rate limiting.
      *
-     * Keyed on the authenticated user so one tenant's traffic cannot exhaust
-     * another's budget, and falling back to the IP for unauthenticated calls.
+     * Keyed on the caller's token so one user's traffic cannot exhaust another's
+     * budget, with an IP ceiling underneath it as the anti-abuse floor.
+     *
+     * Deliberately NOT keyed on `$request->user()`: the throttle middleware runs
+     * before `auth:sanctum`, so the user is not resolved yet and every caller —
+     * authenticated or not — would fall into the same per-IP bucket. That made
+     * the per-user limit unreachable and, worse, meant every member of staff
+     * behind one office IP shared a single 40-request budget.
+     *
+     * The token id is the part of a Sanctum token before the `|`, so reading it
+     * costs no query and does not depend on middleware ordering. A forged id
+     * buys nothing: those requests still 401, and the IP limit still counts them.
      */
     private function registerRateLimiters(): void
     {
-        RateLimiter::for('api', fn (Request $request): Limit => $request->user() !== null
-            ? Limit::perMinute(180)->by('user:'.$request->user()->getAuthIdentifier())
-            : Limit::perMinute(40)->by('ip:'.$request->ip()));
+        RateLimiter::for('api', function (Request $request): array|Limit {
+            $tokenId = self::bearerTokenId($request);
+
+            if ($tokenId === null) {
+                return Limit::perMinute(40)->by('ip:'.$request->ip());
+            }
+
+            return [
+                Limit::perMinute(180)->by('token:'.$tokenId),
+                Limit::perMinute(600)->by('ip:'.$request->ip()),
+            ];
+        });
+    }
+
+    /**
+     * The numeric id of the presented Sanctum token, or null if there isn't a
+     * well-formed one. Identifies the caller without resolving them.
+     */
+    private static function bearerTokenId(Request $request): ?string
+    {
+        $token = $request->bearerToken();
+
+        if ($token === null || ! str_contains($token, '|')) {
+            return null;
+        }
+
+        $id = Str::before($token, '|');
+
+        return ctype_digit($id) ? $id : null;
     }
 
     private function configureModels(): void

@@ -189,7 +189,7 @@ export default function SecuritySettingsPage() {
       <Card>
         <CardHeader
           title="How your account is protected"
-          description="What Fast Sold does on your behalf."
+          description="What Ozipco Inventory does on your behalf."
           icon="shield"
         />
         <ul className="mt-4 space-y-3">

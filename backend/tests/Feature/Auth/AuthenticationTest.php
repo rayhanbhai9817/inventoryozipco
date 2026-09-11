@@ -181,6 +181,55 @@ final class AuthenticationTest extends TestCase
         $this->getJson('/api/v1/inventory/ledger')->assertUnauthorized();
     }
 
+    /**
+     * A token-bearing caller must get the generous per-token budget, not the
+     * tight per-IP one.
+     *
+     * The throttle middleware runs before `auth:sanctum`, so a limiter written
+     * against `$request->user()` sees null and drops every caller into the
+     * shared per-IP bucket — which silently capped all authenticated traffic at
+     * the anonymous limit and made everyone behind one office IP share it. The
+     * headers are asserted because nothing else makes that visible.
+     */
+    public function test_authenticated_requests_are_throttled_per_token_not_per_ip(): void
+    {
+        ['business' => $business] = $this->createBusinessWithOwner();
+        $user = User::factory()->owner()->forBusiness($business)->create([
+            'email' => 'budget@example.com',
+            'password' => Hash::make('Correct-Horse-42'),
+        ]);
+
+        $token = $this->postJson('/api/v1/auth/login', [
+            'email' => 'budget@example.com',
+            'password' => 'Correct-Horse-42',
+        ])->json('token');
+
+        // The anonymous call goes first: `withHeader` persists for the rest of
+        // the test, so there is no way back to an unauthenticated request after
+        // the token has been attached.
+        $anonymous = $this->getJson('/api/v1/products')->assertUnauthorized();
+
+        $this->assertSame('40', $anonymous->headers->get('X-RateLimit-Limit'));
+
+        $authenticated = $this->withHeader('Authorization', "Bearer {$token}")
+            ->getJson('/api/v1/products')
+            ->assertOk();
+
+        $this->assertSame('180', $authenticated->headers->get('X-RateLimit-Limit'));
+
+        // A token presented for the first time starts with its full budget
+        // rather than inheriting whatever the anonymous caller already spent.
+        $this->assertSame(179, (int) $authenticated->headers->get('X-RateLimit-Remaining'));
+
+        $second = $this->getJson('/api/v1/products')->assertOk();
+
+        $this->assertSame(
+            (int) $authenticated->headers->get('X-RateLimit-Remaining') - 1,
+            (int) $second->headers->get('X-RateLimit-Remaining'),
+            'Consecutive authenticated requests must draw down one shared token budget.'
+        );
+    }
+
     public function test_signing_out_revokes_the_current_token(): void
     {
         ['business' => $business] = $this->createBusinessWithOwner();
